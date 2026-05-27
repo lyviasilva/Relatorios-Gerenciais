@@ -1,247 +1,392 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Relatório de Acompanhamento Gerencial – Week 21</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <title>Decolar · Acompanhamento Gerencial 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --orange:     #FF6B00;
+      --orange-lt:  #FF8C38;
+      --orange-dim: rgba(255,107,0,0.12);
+      --bg:         #0d1117;
+      --bg2:        #161b27;
+      --bg3:        #1e2535;
+      --border:     rgba(255,255,255,0.07);
+      --text:       #e2e8f0;
+      --muted:      #64748b;
+      --subtle:     #94a3b8;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: 'Inter', sans-serif;
-      background: #0f1117;
-      color: #e2e8f0;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-    /* ── HEADER ── */
+    /* ════════════════════════════
+       HEADER
+    ════════════════════════════ */
     header {
-      background: linear-gradient(135deg, #1a1f2e 0%, #16213e 50%, #0f3460 100%);
-      border-bottom: 1px solid rgba(99,179,237,0.2);
-      padding: 40px 24px 36px;
+      background: linear-gradient(135deg, #111827 0%, #1a2236 60%, #1f2d4a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--orange), var(--orange-lt));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-icon svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .logo-text { display: flex; flex-direction: column; }
+    .logo-title { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .logo-sub   { font-size: 11px; color: var(--muted); letter-spacing: 0.5px; }
+    .year-badge {
+      background: var(--orange-dim);
+      border: 1px solid rgba(255,107,0,0.3);
+      color: var(--orange-lt);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    /* ════════════════════════════
+       HERO STRIP
+    ════════════════════════════ */
+    .hero {
+      background: linear-gradient(135deg, #111827 0%, #1a2236 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 32px 44px;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
-    header::before {
+    .hero::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(99,179,237,0.12) 0%, transparent 70%);
+      background: radial-gradient(ellipse at 50% -20%, rgba(255,107,0,0.10) 0%, transparent 65%);
       pointer-events: none;
     }
-    .badge {
+    .hero-label {
       display: inline-block;
-      background: rgba(99,179,237,0.15);
-      border: 1px solid rgba(99,179,237,0.35);
-      color: #63b3ed;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
+      background: var(--orange-dim);
+      border: 1px solid rgba(255,107,0,0.25);
+      color: var(--orange-lt);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
       padding: 4px 14px;
       border-radius: 20px;
       margin-bottom: 18px;
     }
-    header h1 {
-      font-size: clamp(22px, 4vw, 36px);
+    .hero h1 {
+      font-size: clamp(24px, 4vw, 38px);
       font-weight: 800;
       color: #fff;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.8px;
       line-height: 1.2;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
-    header h1 span { color: #63b3ed; }
-    header p {
+    .hero h1 span { color: var(--orange-lt); }
+    .hero p {
       font-size: 14px;
-      color: #94a3b8;
-      max-width: 520px;
+      color: var(--subtle);
+      max-width: 480px;
       margin: 0 auto;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
-    /* ── STATS BAR ── */
+    /* ════════════════════════════
+       STATS BAR
+    ════════════════════════════ */
     .stats-bar {
-      background: #161b2e;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: center;
-      gap: 0;
       flex-wrap: wrap;
     }
     .stat {
-      padding: 14px 32px;
+      padding: 16px 36px;
       text-align: center;
-      border-right: 1px solid rgba(255,255,255,0.06);
+      border-right: 1px solid var(--border);
     }
     .stat:last-child { border-right: none; }
-    .stat-value { font-size: 18px; font-weight: 700; color: #63b3ed; }
-    .stat-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+    .stat-value { font-size: 20px; font-weight: 700; color: var(--orange-lt); }
+    .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 3px; }
 
-    /* ── MAIN ── */
+    /* ════════════════════════════
+       MAIN LAYOUT
+    ════════════════════════════ */
     main {
       flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 24px;
-    }
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 28px;
-      max-width: 780px;
+      max-width: 1100px;
       width: 100%;
+      margin: 0 auto;
+      padding: 48px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
     }
 
-    /* ── CARD ── */
-    .card {
-      background: #161b2e;
-      border: 1px solid rgba(255,255,255,0.08);
+    /* ════════════════════════════
+       MONTH SECTION
+    ════════════════════════════ */
+    .month-section {}
+
+    .month-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .month-pill {
+      background: linear-gradient(135deg, var(--orange), var(--orange-lt));
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 18px;
       border-radius: 20px;
-      padding: 36px 32px;
+    }
+    .month-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255,107,0,0.3), transparent);
+    }
+    .month-count {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ════════════════════════════
+       WEEKS GRID
+    ════════════════════════════ */
+    .weeks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    /* ════════════════════════════
+       WEEK CARD
+    ════════════════════════════ */
+    .week-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 22px;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
       position: relative;
       overflow: hidden;
-      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
     }
-    .card::before {
+    .week-card::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 3px;
-      border-radius: 20px 20px 0 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--orange-lt));
+      opacity: 0;
+      transition: opacity .22s;
     }
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    .week-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,107,0,0.35);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,107,0,0.15);
     }
+    .week-card:hover::before { opacity: 1; }
 
-    /* Card 1 – Supervisores */
-    .card-1::before { background: linear-gradient(90deg, #63b3ed, #4299e1); }
-    .card-1:hover   { border-color: rgba(99,179,237,0.4); }
-    .card-1 .icon-wrap { background: rgba(99,179,237,0.12); }
-    .card-1 .icon-wrap svg { color: #63b3ed; }
-    .card-1 .card-btn { background: linear-gradient(135deg, #4299e1, #63b3ed); }
-
-    /* Card 2 – Afetações */
-    .card-2::before { background: linear-gradient(90deg, #68d391, #48bb78); }
-    .card-2:hover   { border-color: rgba(104,211,145,0.4); }
-    .card-2 .icon-wrap { background: rgba(104,211,145,0.12); }
-    .card-2 .icon-wrap svg { color: #68d391; }
-    .card-2 .card-btn { background: linear-gradient(135deg, #48bb78, #68d391); }
-
-    .icon-wrap {
-      width: 56px; height: 56px;
-      border-radius: 14px;
+    .week-icon {
+      width: 44px; height: 44px;
+      background: var(--orange-dim);
+      border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
     }
-    .icon-wrap svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .week-icon svg { width: 22px; height: 22px; fill: none; stroke: var(--orange-lt); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-    .card-part {
-      font-size: 11px;
+    .week-num {
+      font-size: 10px;
       font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #64748b;
+      color: var(--orange-lt);
     }
-    .card h2 {
-      font-size: 20px;
+    .week-title {
+      font-size: 16px;
       font-weight: 700;
       color: #f1f5f9;
       line-height: 1.3;
     }
-    .card p {
-      font-size: 13px;
-      color: #64748b;
-      line-height: 1.7;
-      flex: 1;
-    }
-    .card-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 600;
-      padding: 12px 22px;
-      border-radius: 10px;
-      text-decoration: none;
-      margin-top: 4px;
-      align-self: flex-start;
-      transition: opacity .2s;
-    }
-    .card-btn:hover { opacity: 0.88; }
-    .card-btn svg { width: 15px; height: 15px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: #0d1117;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      text-align: center;
-      padding: 20px 24px;
+    .week-meta {
       font-size: 12px;
-      color: #334155;
+      color: var(--muted);
+      line-height: 1.5;
     }
-    footer span { color: #475569; }
+    .week-arrow {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--orange-lt);
+      margin-top: 4px;
+    }
+    .week-arrow svg { width: 14px; height: 14px; fill: none; stroke: var(--orange-lt); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+    .week-card:hover .week-arrow svg { transform: translateX(4px); }
+
+    /* ════════════════════════════
+       EMPTY STATE (future weeks)
+    ════════════════════════════ */
+    .week-card.empty {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+      border-style: dashed;
+    }
+    .week-card.empty:hover { transform: none; box-shadow: none; border-color: var(--border); }
+    .week-card.empty .week-icon { background: rgba(100,116,139,0.1); }
+    .week-card.empty .week-icon svg { stroke: var(--muted); }
+    .week-card.empty .week-num { color: var(--muted); }
+    .week-card.empty .week-title { color: var(--muted); }
+
+    /* ════════════════════════════
+       FOOTER
+    ════════════════════════════ */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 22px 24px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    footer strong { color: var(--subtle); }
+
+    /* ════════════════════════════
+       RESPONSIVE
+    ════════════════════════════ */
+    @media (max-width: 600px) {
+      header { padding: 0 16px; }
+      main   { padding: 32px 16px; }
+      .stat  { padding: 12px 20px; }
+      .hero  { padding: 36px 16px 32px; }
+    }
   </style>
 </head>
 <body>
 
+<!-- ── HEADER ── -->
 <header>
-  <div class="badge">Relatório Gerencial</div>
-  <h1>Acompanhamento Gerencial<br/><span>Week 21</span></h1>
-  <p>Selecione um dos relatórios abaixo para visualizar os dados de desempenho da semana.</p>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/></svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-title">Decolar</span>
+        <span class="logo-sub">Acompanhamento Gerencial</span>
+      </div>
+    </div>
+    <div class="year-badge">2026</div>
+  </div>
 </header>
 
-<div class="stats-bar">
-  <div class="stat"><div class="stat-value">Week 21</div><div class="stat-label">Período</div></div>
-  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Relatórios</div></div>
-  <div class="stat"><div class="stat-value">2025</div><div class="stat-label">Ano</div></div>
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-label">Visão Mensal</div>
+  <h1>Relatórios de <span>Acompanhamento</span><br/>Gerencial · 2026</h1>
+  <p>Acesse os relatórios semanais organizados por mês. Cada reporte reúne todas as informações gerenciais em uma única página.</p>
 </div>
 
+<!-- ── STATS BAR ── -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-value">2026</div><div class="stat-label">Ano</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Mês Ativo</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Semana Disponível</div></div>
+</div>
+
+<!-- ── MAIN ── -->
 <main>
-  <div class="cards-grid">
 
-    <!-- Card 1 -->
-    <a class="card card-1" href="RELATÓRIO - Week 21 - Parte 1 (Supervisores).html">
-      <div class="icon-wrap">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+  <!-- ══ MÊS: MAIO ══ -->
+  <section class="month-section" id="maio">
+    <div class="month-header">
+      <span class="month-pill">Maio</span>
+      <div class="month-line"></div>
+      <span class="month-count">1 reporte disponível</span>
+    </div>
+
+    <div class="weeks-grid">
+
+      <!-- Week 21 — DISPONÍVEL -->
+      <a class="week-card" href="RELATÓRIO - Week 21.html">
+        <div class="week-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="week-num">Week 21</div>
+        <div class="week-title">Acompanhamento<br/>Gerencial</div>
+        <div class="week-meta">Supervisores · Afetações<br/>Maio · 2026</div>
+        <div class="week-arrow">
+          Abrir Reporte
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <!-- Week 22 — EM BREVE (exemplo de slot vazio) -->
+      <div class="week-card empty">
+        <div class="week-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="week-num">Week 22</div>
+        <div class="week-title">Em breve</div>
+        <div class="week-meta">Reporte ainda<br/>não disponível</div>
       </div>
-      <div class="card-part">Parte 1</div>
-      <h2>Relatório de Supervisores</h2>
-      <p>Visão consolidada do desempenho por supervisor — métricas, indicadores e acompanhamento individual da equipe.</p>
-      <span class="card-btn">
-        Abrir Relatório
-        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </span>
-    </a>
 
-    <!-- Card 2 -->
-    <a class="card card-2" href="RELATÓRIO - Week 21 - Parte 2 (Agentes).html">
-      <div class="icon-wrap">
-        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      </div>
-      <div class="card-part">Parte 2</div>
-      <h2>Relatório de Afetações</h2>
-      <p>Análise detalhada das afetações por supervisor — causas, impactos e distribuição ao longo da semana.</p>
-      <span class="card-btn">
-        Abrir Relatório
-        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </span>
-    </a>
+    </div>
+  </section>
 
-  </div>
 </main>
 
+<!-- ── FOOTER ── -->
 <footer>
-  <span>Relatório de Acompanhamento Gerencial · Week 21 · 2025</span>
+  <strong>Decolar · Acompanhamento Gerencial</strong> &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Todos os direitos reservados
 </footer>
 
 </body>
