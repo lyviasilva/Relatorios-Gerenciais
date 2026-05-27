@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Relatório de Acompanhamento Gerencial – Week 21</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #16213e 50%, #0f3460 100%);
+      border-bottom: 1px solid rgba(99,179,237,0.2);
+      padding: 40px 24px 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(99,179,237,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(99,179,237,0.15);
+      border: 1px solid rgba(99,179,237,0.35);
+      color: #63b3ed;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    header h1 {
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    header h1 span { color: #63b3ed; }
+    header p {
+      font-size: 14px;
+      color: #94a3b8;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: #161b2e;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .stat {
+      padding: 14px 32px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-value { font-size: 18px; font-weight: 700; color: #63b3ed; }
+    .stat-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      max-width: 780px;
+      width: 100%;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #161b2e;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 36px 32px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 20px 20px 0 0;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    /* Card 1 – Supervisores */
+    .card-1::before { background: linear-gradient(90deg, #63b3ed, #4299e1); }
+    .card-1:hover   { border-color: rgba(99,179,237,0.4); }
+    .card-1 .icon-wrap { background: rgba(99,179,237,0.12); }
+    .card-1 .icon-wrap svg { color: #63b3ed; }
+    .card-1 .card-btn { background: linear-gradient(135deg, #4299e1, #63b3ed); }
+
+    /* Card 2 – Afetações */
+    .card-2::before { background: linear-gradient(90deg, #68d391, #48bb78); }
+    .card-2:hover   { border-color: rgba(104,211,145,0.4); }
+    .card-2 .icon-wrap { background: rgba(104,211,145,0.12); }
+    .card-2 .icon-wrap svg { color: #68d391; }
+    .card-2 .card-btn { background: linear-gradient(135deg, #48bb78, #68d391); }
+
+    .icon-wrap {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .icon-wrap svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .card-part {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.3;
+    }
+    .card p {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.7;
+      flex: 1;
+    }
+    .card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 12px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-top: 4px;
+      align-self: flex-start;
+      transition: opacity .2s;
+    }
+    .card-btn:hover { opacity: 0.88; }
+    .card-btn svg { width: 15px; height: 15px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0d1117;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      padding: 20px 24px;
+      font-size: 12px;
+      color: #334155;
+    }
+    footer span { color: #475569; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">Relatório Gerencial</div>
+  <h1>Acompanhamento Gerencial<br/><span>Week 21</span></h1>
+  <p>Selecione um dos relatórios abaixo para visualizar os dados de desempenho da semana.</p>
+</header>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-value">Week 21</div><div class="stat-label">Período</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Relatórios</div></div>
+  <div class="stat"><div class="stat-value">2025</div><div class="stat-label">Ano</div></div>
+</div>
+
+<main>
+  <div class="cards-grid">
+
+    <!-- Card 1 -->
+    <a class="card card-1" href="RELATÓRIO - Week 21 - Parte 1 (Supervisores).html">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="card-part">Parte 1</div>
+      <h2>Relatório de Supervisores</h2>
+      <p>Visão consolidada do desempenho por supervisor — métricas, indicadores e acompanhamento individual da equipe.</p>
+      <span class="card-btn">
+        Abrir Relatório
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </span>
+    </a>
+
+    <!-- Card 2 -->
+    <a class="card card-2" href="RELATÓRIO - Week 21 - Parte 2 (Agentes).html">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="card-part">Parte 2</div>
+      <h2>Relatório de Afetações</h2>
+      <p>Análise detalhada das afetações por supervisor — causas, impactos e distribuição ao longo da semana.</p>
+      <span class="card-btn">
+        Abrir Relatório
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </span>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <span>Relatório de Acompanhamento Gerencial · Week 21 · 2025</span>
+</footer>
+
+</body>
+</html>
